@@ -1,65 +1,395 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>US Currency Calculator</title>
-	<link rel="stylesheet" href="style.css">
-</head>
-	<form>
-		<div style="display: flex; justify-content: center;">
-			<div style="margin-right: 2rem;">
-				<label for="ones">$1 bills:</label>
-				<input type="number" name="ones" id="ones" min="0">
-				<label for="fives">$5 bills:</label>
-				<input type="number" name="fives" id="fives" min="0">
-				<label for="tens">$10 bills:</label>
-				<input type="number" name="tens" id="tens" min="0">
-				<label for="twenties">$20 bills:</label>
-				<input type="number" name="twenties" id="twenties" min="0">
-				<label for="fifties">$50 bills:</label>
-				<input type="number" name="fifties" id="fifties" min="0">
-				<label for="hundreds">$100 bills:</label>
-				<input type="number" name="hundreds" id="hundreds" min="0">
-			</div>
-			<div style="margin-right: 2rem;"">
-				<label for="pennies">Pennies:</label>
-				<input type="number" name="pennies" id="pennies" min="0">
-				<label for="nickels">Nickels:</label>
-				<input type="number" name="nickels" id="nickels" min="0">
-				<label for="dimes">Dimes:</label>
-				<input type="number" name="dimes" id="dimes" min="0">
-				<label for="quarters">Quarters:</label>
-				<input type="number" name="quarters" id="quarters" min="0">
-				<div class="total" style="display: flex; justify-content: center; margin-top: 2rem;">
-					<total>Total: <span id="total"></span></total>
-				</div>
-		</div>
-			
-		<div style="display: flex; justify-content: center; margin-top: 1rem; margin-left: 2rem;">
-			<button type="button" onclick="calculateTotal()">Calculate Total</button>
-		</div>
-		<script>
-		  function calculateTotal() {
-		    const oneDollar = parseFloat(document.getElementById('ones').value) || 0;
-		    const fiveDollar = parseFloat(document.getElementById('fives').value) || 0;
-		    const tenDollar = parseFloat(document.getElementById('tens').value) || 0;
-		    const twentyDollar = parseFloat(document.getElementById('twenties').value) || 0;
-		    const fiftyDollar = parseFloat(document.getElementById('fifties').value) || 0;
-		    const hundredDollar = parseFloat(document.getElementById('hundreds').value) || 0;
-		    const penny = parseFloat(document.getElementById('pennies').value) || 0;
-		    const nickel = parseFloat(document.getElementById('nickels').value) || 0;
-		    const dime = parseFloat(document.getElementById('dimes').value) || 0;
-		    const quarter = parseFloat(document.getElementById('quarters').value) || 0;
-				
-		    const total = (oneDollar + fiveDollar*5 + tenDollar*10 + twentyDollar*20 + fiftyDollar*50 + hundredDollar*100 + penny*0.01 + nickel*0.05 + dime*0.1 + quarter*0.25).toFixed(2);
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shady Brook Drawer Counter</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="calculator" role="main" aria-label="Shady Brook Drawer Counter">
+      <div class="main-content">
+        <h1>Shady Brook Drawer Counter</h1>
 
-		    
-		    document.getElementById('total').innerHTML = ' $ ' + total;
-		  }
-		  
-		  const form = document.getElementById('money-form');
-		  form.addEventListener('submit', function(event) {
-		    event.preventDefault();
-		    calculateTotal();
-		  });
-		</script>
-	</body>
+        <div class="start-bank-container">
+          <label for="startBank">Start Bank ($):</label>
+          <input
+            type="number"
+            step="0.01"
+            id="startBank"
+            min="0"
+            placeholder="Enter amount"
+          />
+          <button type="button" id="clearBtn">Clear</button>
+        </div>
+
+        <!-- Bills Section -->
+        <h2>Bills</h2>
+        <form id="money-form" aria-label="Currency inputs">
+          <div>
+            <label for="ones">$1 bills:</label>
+            <input type="number" id="ones" min="0" />
+          </div>
+          <div>
+            <label for="fives">$5 bills:</label>
+            <input type="number" id="fives" min="0" />
+          </div>
+          <div>
+            <label for="tens">$10 bills:</label>
+            <input type="number" id="tens" min="0" />
+          </div>
+          <div>
+            <label for="twenties">$20 bills:</label>
+            <input type="number" id="twenties" min="0" />
+          </div>
+          <div>
+            <label for="fifties">$50 bills:</label>
+            <input type="number" id="fifties" min="0" />
+          </div>
+          <div>
+            <label for="hundreds">$100 bills:</label>
+            <input type="number" id="hundreds" min="0" />
+          </div>
+
+          <!-- Coins Section -->
+          <h2 style="grid-column: span 3">Coins</h2>
+          <div>
+            <label for="pennies">Pennies:</label>
+            <input type="number" id="pennies" min="0" />
+          </div>
+          <div>
+            <label for="nickels">Nickels:</label>
+            <input type="number" id="nickels" min="0" />
+          </div>
+          <div>
+            <label for="dimes">Dimes:</label>
+            <input type="number" id="dimes" min="0" />
+          </div>
+          <div>
+            <label for="quarters">Quarters:</label>
+            <input type="number" id="quarters" min="0" />
+          </div>
+
+          <!-- Coin Rolls Section -->
+          <h2 style="grid-column: span 3">Coin Rolls</h2>
+          <div>
+            <label for="rollPennies">Penny rolls (50¢ each):</label>
+            <input type="number" id="rollPennies" min="0" />
+          </div>
+          <div>
+            <label for="rollNickels">Nickel rolls ($2 each):</label>
+            <input type="number" id="rollNickels" min="0" />
+          </div>
+          <div>
+            <label for="rollDimes">Dime rolls ($5 each):</label>
+            <input type="number" id="rollDimes" min="0" />
+          </div>
+          <div>
+            <label for="rollQuarters">Quarter rolls ($10 each):</label>
+            <input type="number" id="rollQuarters" min="0" />
+          </div>
+        </form>
+
+        <div class="totals" aria-live="polite" aria-atomic="true">
+          Total: <span id="total" role="text">$0.00</span>
+          <span class="deposit"
+            >Deposit: <span id="deposit" role="text">$0.00</span></span
+          >
+        </div>
+      </div>
+
+      <aside class="side-panel" id="sidePanel" aria-label="Break down deposit">
+        <h3>Deposit Breakdown</h3>
+        <ul id="breakdownList">
+          <li>No bills/coins to remove.</li>
+        </ul>
+        <div
+          id="breakdownSum"
+          style="
+            margin-top: auto;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #4caf50;
+            padding-top: 12px;
+            border-top: 1px solid #333;
+          "
+        >
+          $0.00
+        </div>
+      </aside>
+    </div>
+    <div
+      id="toast"
+      style="
+        visibility: hidden;
+        min-width: 250px;
+        background-color: #ea9320;
+        color: white;
+        text-align: center;
+        border-radius: 8px;
+        padding: 16px;
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 1rem;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+      "
+    ></div>
+    <button
+      id="helpBtn"
+      aria-label="Help"
+      title="Help"
+      style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #00bcd4;
+        border: none;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: background 0.3s ease;
+      "
+    >
+      ?
+    </button>
+    <div
+      id="helpModal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(3px);
+        z-index: 1100;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div
+        style="
+          background: #1e1e1e;
+          color: #e0e0e0;
+          max-width: 480px;
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: 0 0 20px #00bcd4aa;
+          position: relative;
+          font-family: Arial, sans-serif;
+        "
+      >
+        <button
+          id="closeHelp"
+          aria-label="Close Help"
+          title="Close Help"
+          style="
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            color: #00bcd4;
+            font-size: 24px;
+            cursor: pointer;
+            font-weight: bold;
+            line-height: 1;
+          "
+        >
+          &times;
+        </button>
+
+        <h2 style="color: #00bcd4; margin-top: 0">User Guide:</h2>
+        <p>
+          Enter the quantity of each bill, coin, and coin roll in the boxes.<br /><br />
+          The <strong>Total</strong> at the bottom shows the total cash
+          amount.<br /><br />
+          The <strong>Deposit</strong> shows your total cash minus your starting
+          bank.<br /><br /><br />
+          <em>and because I'm lazy,</em><br /><br />
+          Use the <strong>Deposit Breakdown</strong> panel to automatically
+          calculate what to pull for your deposit.<br /><br />
+          - <strong>Cameron</strong>.<br /><br />
+          <a
+            href="https://github.com/cgolden15/sbf/blob/main/count/index.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #00bcd4; text-decoration: underline"
+            >Source Code</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <script>
+      const inputs = document.querySelectorAll("#money-form input, #startBank");
+      const totalDisplay = document.getElementById("total");
+      const depositDisplay = document.getElementById("deposit");
+      const breakdownList = document.getElementById("breakdownList");
+      const clearBtn = document.getElementById("clearBtn");
+
+      const denominations = [
+        { id: "hundreds", value: 100 },
+        { id: "fifties", value: 50 },
+        { id: "twenties", value: 20 },
+        { id: "tens", value: 10 },
+        { id: "fives", value: 5 },
+        { id: "ones", value: 1 },
+        { id: "quarters", value: 0.25 },
+        { id: "dimes", value: 0.1 },
+        { id: "nickels", value: 0.05 },
+        { id: "pennies", value: 0.01 },
+      ];
+
+      const rollValues = {
+        rollPennies: 0.5,
+        rollNickels: 2.0,
+        rollDimes: 5.0,
+        rollQuarters: 10.0,
+      };
+
+      function updateTotals() {
+        let total = 0;
+        denominations.forEach((denom) => {
+          const count = +document.getElementById(denom.id).value || 0;
+          total += count * denom.value;
+        });
+
+        for (let roll in rollValues) {
+          const count = +document.getElementById(roll).value || 0;
+          total += count * rollValues[roll];
+        }
+
+        const startBank =
+          parseFloat(document.getElementById("startBank").value) || 0;
+        const deposit = Math.max(total - startBank, 0);
+
+        totalDisplay.textContent = `$${total.toFixed(2)}`;
+        depositDisplay.textContent = `$${deposit.toFixed(2)}`;
+
+        updateBreakdownList(deposit);
+      }
+
+      function updateBreakdownList(deposit) {
+        breakdownList.innerHTML = "";
+        const breakdownSumEl = document.getElementById("breakdownSum");
+
+        if (deposit === 0) {
+          breakdownList.innerHTML = "<li>No bills/coins to remove.</li>";
+          breakdownSumEl.textContent = "$0.00";
+          breakdownSumEl.style.color = "#4caf50"; // green color
+          return;
+        }
+
+        let remaining = deposit;
+        let breakdownItems = [];
+        let sumOfBills = 0;
+
+        denominations.forEach((denom) => {
+          let available = +document.getElementById(denom.id).value || 0;
+          let needed = Math.min(Math.floor(remaining / denom.value), available);
+          if (needed > 0) {
+            breakdownItems.push(`${needed} × $${denom.value.toFixed(2)}`);
+            sumOfBills += needed * denom.value;
+            remaining -= needed * denom.value;
+            remaining = Math.round(remaining * 100) / 100;
+          }
+        });
+
+        if (breakdownItems.length === 0) {
+          breakdownList.innerHTML = "<li>No bills/coins to remove.</li>";
+          breakdownSumEl.textContent = "$0.00";
+          breakdownSumEl.style.color = "#4caf50";
+        } else {
+          breakdownItems.forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            breakdownList.appendChild(li);
+          });
+
+          // Verify sum of deposit matches calculated deposit
+          if (Math.abs(sumOfBills - deposit) < 0.01) {
+            breakdownSumEl.textContent = `Sum of Deposit: $${sumOfBills.toFixed(
+              2
+            )}`;
+            breakdownSumEl.style.color = "#4caf50"; // green for OK
+          } else {
+            breakdownSumEl.textContent = "error";
+            breakdownSumEl.style.color = "#f44336"; // red for error
+            showToast(
+              "Error: Deposit breakdown does not match deposit due to a floating point rounding issue."
+            );
+          }
+        }
+      }
+
+      clearBtn.addEventListener("click", () => {
+        inputs.forEach((input) => {
+          if (input.id !== "startBank") {
+            input.value = "";
+          }
+        });
+        updateTotals();
+      });
+
+      inputs.forEach((input, index) => {
+        input.addEventListener("input", updateTotals);
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            if (index < inputs.length - 1) {
+              inputs[index + 1].focus();
+            } else {
+              inputs[0].focus();
+            }
+          }
+        });
+      });
+
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.style.visibility = "visible";
+        toast.style.opacity = "1";
+
+        clearTimeout(toast._timeout);
+        toast._timeout = setTimeout(() => {
+          toast.style.opacity = "0";
+          toast.style.visibility = "hidden";
+        }, 5000); // Toast visible for 3.5 seconds
+      }
+
+      const helpBtn = document.getElementById("helpBtn");
+      const helpModal = document.getElementById("helpModal");
+      const closeHelp = document.getElementById("closeHelp");
+
+      helpBtn.addEventListener("click", () => {
+        helpModal.style.display = "flex";
+      });
+
+      closeHelp.addEventListener("click", () => {
+        helpModal.style.display = "none";
+      });
+
+      // Optional: close modal when clicking outside the content box
+      helpModal.addEventListener("click", (e) => {
+        if (e.target === helpModal) {
+          helpModal.style.display = "none";
+        }
+      });
+
+      updateTotals();
+    </script>
+  </body>
+</html>

@@ -4,12 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Shady Brook Drawer Counter</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css" />
+     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23121212'/><rect x='10' y='20' width='80' height='60' rx='8' fill='%231e1e1e' stroke='%2300bcd4' stroke-width='2'/><rect x='15' y='25' width='70' height='50' fill='%232a2a2a'/><rect x='20' y='30' width='15' height='8' rx='2' fill='%234caf50'/><rect x='20' y='42' width='15' height='8' rx='2' fill='%234caf50'/><rect x='20' y='54' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='30' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='42' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='54' width='15' height='8' rx='2' fill='%234caf50'/><circle cx='70' cy='34' r='4' fill='%23ffca28'/><circle cx='70' cy='46' r='4' fill='%23ffca28'/><circle cx='70' cy='58' r='4' fill='%23ffca28'/><rect x='25' y='85' width='50' height='8' rx='2' fill='%2300bcd4'/></svg>" type="image/svg+xml">" />
   </head>
   <body>
     <div class="calculator" role="main" aria-label="Shady Brook Drawer Counter">
       <div class="main-content">
-        <h1>Shady Brook Drawer Counter</h1>
+        <h1>SBF Drawer Counter</h1>
 
         <div class="start-bank-container">
           <label for="startBank">Start Bank ($):</label>
@@ -52,7 +53,7 @@
           </div>
 
           <!-- Coins Section -->
-          <h2 style="grid-column: span 3">Coins</h2>
+          <h2>Coins</h2>
           <div>
             <label for="pennies">Pennies:</label>
             <input type="number" id="pennies" min="0" />
@@ -71,7 +72,7 @@
           </div>
 
           <!-- Coin Rolls Section -->
-          <h2 style="grid-column: span 3">Coin Rolls</h2>
+          <h2>Coin Rolls</h2>
           <div>
             <label for="rollPennies">Penny rolls (50¢ each):</label>
             <input type="number" id="rollPennies" min="0" />
@@ -91,10 +92,8 @@
         </form>
 
         <div class="totals" aria-live="polite" aria-atomic="true">
-          Total: <span id="total" role="text">$0.00</span>
-          <span class="deposit"
-            >Deposit: <span id="deposit" role="text">$0.00</span></span
-          >
+          <div>Total: <span id="total" role="text">$0.00</span></div>
+          <div class="deposit">Deposit: <span id="deposit" role="text">$0.00</span></div>
         </div>
       </div>
 
@@ -119,93 +118,23 @@
         </div>
       </aside>
     </div>
-    <div
-      id="toast"
-      style="
-        visibility: hidden;
-        min-width: 250px;
-        background-color: #ea9320;
-        color: white;
-        text-align: center;
-        border-radius: 8px;
-        padding: 16px;
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 1rem;
-        z-index: 1000;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-      "
-    ></div>
+    
+    <div id="toast"></div>
+    
     <button
       id="helpBtn"
       aria-label="Help"
       title="Help"
-      style="
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: #00bcd4;
-        border: none;
-        border-radius: 50%;
-        width: 48px;
-        height: 48px;
-        color: white;
-        font-size: 24px;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        transition: background 0.3s ease;
-      "
     >
       ?
     </button>
-    <div
-      id="helpModal"
-      style="
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.75);
-        backdrop-filter: blur(3px);
-        z-index: 1100;
-        justify-content: center;
-        align-items: center;
-      "
-    >
-      <div
-        style="
-          background: #1e1e1e;
-          color: #e0e0e0;
-          max-width: 480px;
-          padding: 2rem;
-          border-radius: 12px;
-          box-shadow: 0 0 20px #00bcd4aa;
-          position: relative;
-          font-family: Arial, sans-serif;
-        "
-      >
+    
+    <div id="helpModal">
+      <div>
         <button
           id="closeHelp"
           aria-label="Close Help"
           title="Close Help"
-          style="
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: transparent;
-            border: none;
-            color: #00bcd4;
-            font-size: 24px;
-            cursor: pointer;
-            font-weight: bold;
-            line-height: 1;
-          "
         >
           &times;
         </button>
@@ -367,7 +296,7 @@
         toast._timeout = setTimeout(() => {
           toast.style.opacity = "0";
           toast.style.visibility = "hidden";
-        }, 5000); // Toast visible for 3.5 seconds
+        }, 5000); // Toast visible for 5 seconds
       }
 
       const helpBtn = document.getElementById("helpBtn");
@@ -382,7 +311,7 @@
         helpModal.style.display = "none";
       });
 
-      // Optional: close modal when clicking outside the content box
+      // Close modal when clicking outside the content box
       helpModal.addEventListener("click", (e) => {
         if (e.target === helpModal) {
           helpModal.style.display = "none";

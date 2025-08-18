@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Shady Brook Drawer Counter</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23121212'/><rect x='10' y='20' width='80' height='60' rx='8' fill='%231e1e1e' stroke='%2300bcd4' stroke-width='2'/><rect x='15' y='25' width='70' height='50' fill='%232a2a2a'/><rect x='20' y='30' width='15' height='8' rx='2' fill='%234caf50'/><rect x='20' y='42' width='15' height='8' rx='2' fill='%234caf50'/><rect x='20' y='54' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='30' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='42' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='54' width='15' height='8' rx='2' fill='%234caf50'/><circle cx='70' cy='34' r='4' fill='%23ffca28'/><circle cx='70' cy='46' r='4' fill='%23ffca28'/><circle cx='70' cy='58' r='4' fill='%23ffca28'/><rect x='25' y='85' width='50' height='8' rx='2' fill='%2300bcd4'/></svg>" type="image/svg+xml" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23121212'/><rect x='10' y='20' width='80' height='60' rx='8' fill='%231e1e1e' stroke='%2300bcd4' stroke-width='2'/><rect x='15' y='25' width='70' height='50' fill='%232a2a2a'/><rect x='20' y='30' width='15' height='8' rx='2' fill='%234caf50'/><rect x='20' y='42' width='15' height='8' rx='2' fill='%234caf50'/><rect x='20' y='54' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='30' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='42' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='54' width='15' height='8' rx='2' fill='%234caf50'/><circle cx='70' cy='34' r='4' fill='%23ffca28'/><circle cx='70' cy='46' r='4' fill='%23ffca28'/><circle cx='70' cy='58' r='4' fill='%23ffca28'/><rect x='25' y='85' width='50' height='8' rx='2' fill='%2300bcd4'/></svg>"
+      type="image/svg+xml"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -95,7 +99,14 @@
           <div>Total: <span id="total" role="text">$0.00</span></div>
           <div class="deposit">
             Deposit: <span id="deposit" role="text">$0.00</span>
-            <button type="button" class="save-entry-btn" id="saveEntryBtn" title="Save to History">💾</button> 
+            <button
+              type="button"
+              class="save-entry-btn"
+              id="saveEntryBtn"
+              title="Save to History"
+            >
+              💾
+            </button>
           </div>
         </div>
       </div>
@@ -121,29 +132,41 @@
         </div>
       </aside>
     </div>
-    
+
     <div id="toast"></div>
-    
+
     <button id="helpBtn" aria-label="Help" title="Help">?</button>
-    <button id="historyBtn" aria-label="History" title="View History">📊</button>
-    
+    <button id="historyBtn" aria-label="History" title="View History">
+      📊
+    </button>
+
     <div id="historyModal">
       <div>
-        <button id="closeHistory" aria-label="Close History" title="Close History">&times;</button>
+        <button
+          id="closeHistory"
+          aria-label="Close History"
+          title="Close History"
+        >
+          &times;
+        </button>
         <h2 style="color: #ff9800; margin-top: 0">History</h2>
         <p>Saved drawer counts and deposits:</p>
         <div id="historyList">
-          <div style="text-align: center; color: #666; padding: 20px;">
+          <div style="text-align: center; color: #666; padding: 20px">
             No history entries yet. Save an entry to get started!
           </div>
         </div>
-        <button type="button" class="clear-history-btn" id="clearHistoryBtn">Clear All History</button>
+        <button type="button" class="clear-history-btn" id="clearHistoryBtn">
+          Clear All History
+        </button>
       </div>
     </div>
-    
+
     <div id="helpModal">
       <div>
-        <button id="closeHelp" aria-label="Close Help" title="Close Help">&times;</button>
+        <button id="closeHelp" aria-label="Close Help" title="Close Help">
+          &times;
+        </button>
         <h2 style="color: #00bcd4; margin-top: 0">User Guide:</h2>
         <p>
           Enter the quantity of each bill, coin, and coin roll in the boxes.<br /><br />
@@ -167,6 +190,11 @@
     </div>
 
     <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        loadStartBank();
+        updateTotals();
+      });
+
       const inputs = document.querySelectorAll("#money-form input, #startBank");
       const totalDisplay = document.getElementById("total");
       const depositDisplay = document.getElementById("deposit");
@@ -206,35 +234,56 @@
           total: total,
           deposit: deposit,
           timestamp: timestamp.toISOString(),
-          displayTime: timestamp.toLocaleString()
+          displayTime: timestamp.toLocaleString(),
         };
 
         let history = getHistory();
         history.unshift(entry); // Add to beginning of array
-        
+
         // Keep only the last 10 entries
         if (history.length > 10) {
           history = history.slice(0, 10);
         }
 
-        // Use a variable to store instead of localStorage for this environment
-        window.drawerHistory = history;
-        showToast('Entry saved to history!');
+        // Save to localStorage
+        localStorage.setItem("drawerHistory", JSON.stringify(history));
+        showToast("Entry saved to history!");
       }
 
       function getHistory() {
-        return window.drawerHistory || [];
+        try {
+          const stored = localStorage.getItem("drawerHistory");
+          return stored ? JSON.parse(stored) : [];
+        } catch (error) {
+          console.error("Error loading history:", error);
+          return [];
+        }
       }
 
       function clearHistory() {
-        window.drawerHistory = [];
+        localStorage.removeItem("drawerHistory");
         displayHistory();
-        showToast('History cleared!');
+        showToast("History cleared!");
+      }
+
+      function saveStartBank(value) {
+        if (value) {
+          localStorage.setItem("startBank", value.toString());
+        } else {
+          localStorage.removeItem("startBank");
+        }
+      }
+
+      function loadStartBank() {
+        const saved = localStorage.getItem("startBank");
+        if (saved) {
+          document.getElementById("startBank").value = saved;
+        }
       }
 
       function displayHistory() {
         const history = getHistory();
-        
+
         if (history.length === 0) {
           historyList.innerHTML = `
             <div style="text-align: center; color: #666; padding: 20px;">
@@ -244,15 +293,23 @@
           return;
         }
 
-        const historyHTML = history.map(entry => `
+        const historyHTML = history
+          .map(
+            (entry) => `
           <div class="history-item">
             <div class="history-timestamp">${entry.displayTime}</div>
             <div class="history-amounts">
-              <span class="history-total">Total: $${entry.total.toFixed(2)}</span>
-              <span class="history-deposit">Deposit: $${entry.deposit.toFixed(2)}</span>
+              <span class="history-total">Total: $${entry.total.toFixed(
+                2
+              )}</span>
+              <span class="history-deposit">Deposit: $${entry.deposit.toFixed(
+                2
+              )}</span>
             </div>
           </div>
-        `).join('');
+        `
+          )
+          .join("");
 
         historyList.innerHTML = historyHTML;
       }
@@ -334,8 +391,8 @@
 
       clearBtn.addEventListener("click", () => {
         saveToHistory(
-          parseFloat(totalDisplay.textContent.replace('$', '')),
-          parseFloat(depositDisplay.textContent.replace('$', ''))
+          parseFloat(totalDisplay.textContent.replace("$", "")),
+          parseFloat(depositDisplay.textContent.replace("$", ""))
         );
         inputs.forEach((input) => {
           if (input.id !== "startBank") {
@@ -361,15 +418,15 @@
 
       // Event listeners for history functionality
       saveEntryBtn.addEventListener("click", () => {
-        const total = parseFloat(totalDisplay.textContent.replace('$', ''));
-        const deposit = parseFloat(depositDisplay.textContent.replace('$', ''));
-        
+        const total = parseFloat(totalDisplay.textContent.replace("$", ""));
+        const deposit = parseFloat(depositDisplay.textContent.replace("$", ""));
+
         console.log(`Saving entry: Total = ${total}, Deposit = ${deposit}`);
 
         if (total > 0) {
           saveToHistory(total, deposit);
         } else {
-          showToast('Nothing to save - enter some amounts first!');
+          showToast("Nothing to save - enter some amounts first!");
         }
       });
 
@@ -383,7 +440,11 @@
       });
 
       clearHistoryBtn.addEventListener("click", () => {
-        if (confirm('Are you sure you want to clear all history? This cannot be undone.')) {
+        if (
+          confirm(
+            "Are you sure you want to clear all history? This cannot be undone."
+          )
+        ) {
           clearHistory();
         }
       });

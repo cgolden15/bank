@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Shady Brook Drawer Counter</title>
     <link rel="stylesheet" href="styles.css" />
-     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23121212'/><rect x='10' y='20' width='80' height='60' rx='8' fill='%231e1e1e' stroke='%2300bcd4' stroke-width='2'/><rect x='15' y='25' width='70' height='50' fill='%232a2a2a'/><rect x='20' y='30' width='15' height='8' rx='2' fill='%234caf50'/><rect x='20' y='42' width='15' height='8' rx='2' fill='%234caf50'/><rect x='20' y='54' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='30' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='42' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='54' width='15' height='8' rx='2' fill='%234caf50'/><circle cx='70' cy='34' r='4' fill='%23ffca28'/><circle cx='70' cy='46' r='4' fill='%23ffca28'/><circle cx='70' cy='58' r='4' fill='%23ffca28'/><rect x='25' y='85' width='50' height='8' rx='2' fill='%2300bcd4'/></svg>" type="image/svg+xml">" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23121212'/><rect x='10' y='20' width='80' height='60' rx='8' fill='%231e1e1e' stroke='%2300bcd4' stroke-width='2'/><rect x='15' y='25' width='70' height='50' fill='%232a2a2a'/><rect x='20' y='30' width='15' height='8' rx='2' fill='%234caf50'/><rect x='20' y='42' width='15' height='8' rx='2' fill='%234caf50'/><rect x='20' y='54' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='30' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='42' width='15' height='8' rx='2' fill='%234caf50'/><rect x='40' y='54' width='15' height='8' rx='2' fill='%234caf50'/><circle cx='70' cy='34' r='4' fill='%23ffca28'/><circle cx='70' cy='46' r='4' fill='%23ffca28'/><circle cx='70' cy='58' r='4' fill='%23ffca28'/><rect x='25' y='85' width='50' height='8' rx='2' fill='%2300bcd4'/></svg>"
+      type="image/svg+xml"
+    />
   </head>
   <body>
     <div class="calculator" role="main" aria-label="Shady Brook Drawer Counter">
@@ -93,7 +97,9 @@
 
         <div class="totals" aria-live="polite" aria-atomic="true">
           <div>Total: <span id="total" role="text">$0.00</span></div>
-          <div class="deposit">Deposit: <span id="deposit" role="text">$0.00</span></div>
+          <div class="deposit">
+            Deposit: <span id="deposit" role="text">$0.00</span>
+          </div>
         </div>
       </div>
 
@@ -118,24 +124,14 @@
         </div>
       </aside>
     </div>
-    
+
     <div id="toast"></div>
-    
-    <button
-      id="helpBtn"
-      aria-label="Help"
-      title="Help"
-    >
-      ?
-    </button>
-    
+
+    <button id="helpBtn" aria-label="Help" title="Help">?</button>
+
     <div id="helpModal">
       <div>
-        <button
-          id="closeHelp"
-          aria-label="Close Help"
-          title="Close Help"
-        >
+        <button id="closeHelp" aria-label="Close Help" title="Close Help">
           &times;
         </button>
 
